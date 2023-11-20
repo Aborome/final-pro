@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".auth.LoginActivity">
+
+    <ImageView
+        android:id="@+id/login_IV_logo"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/icon"
+        />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/login_TF_email"
+        android:layout_below="@+id/login_IV_logo"
+        android:layout_marginTop="10dp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Email">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/login_TF_password"
+        android:layout_below="@+id/login_TF_email"
+        android:layout_marginTop="10dp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Password"
+        app:endIconMode="password_toggle"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/login_BTN_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Login"
+        android:layout_below="@+id/login_TF_password"
+        android:layout_centerHorizontal="true"
+        android:width="200dp"
+        android:layout_marginTop="20dp"
+        />
+
+    <Button
+        style="@style/Widget.Material3.Button.TextButton"
+        android:id="@+id/login_BTN_forgetPassword"
+        android:layout_below="@+id/login_BTN_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Did you forget your password ?"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/blue"
+        />
+    <com.google.android.material.divider.MaterialDivider
+        android:id="@+id/login_divider"
+        android:layout_below="@+id/login_BTN_forgetPassword"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginVertical="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:id="@+id/login_BTN_signup"
+        android:layout_below="@+id/login_divider"
+        style="?attr/materialButtonOutlinedStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:width="200dp"
+        android:text="Signup"
+        android:layout_centerHorizontal="true"
+        />
+
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/login_PB_loading"
+        android:layout_below="@+id/login_BTN_signup"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:visibility="invisible"
+        />
+</RelativeLayout>
