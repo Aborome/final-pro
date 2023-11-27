@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "347764781201",
+    "project_id": "ecodine-fa45f",
+    "storage_bucket": "ecodine-fa45f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:347764781201:android:abb856a3ac08c7bce0cf30",
+        "android_client_info": {
+          "package_name": "com.example.ecodine"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBx8yEwIPF3XOo4qGGUitG2e7pVOtwFNGI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
