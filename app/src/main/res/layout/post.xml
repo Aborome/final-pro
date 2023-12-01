@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="20dp"
+    android:elevation="8dp"
+    app:cardElevation="8dp"
+    android:layout_margin="10dp"
+    android:minHeight="100dp"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/post_LL_nameWrapper"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <ImageView
+                android:id="@+id/post_IV_profileImage"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/emptyprofile"
+                />
+            <TextView
+                android:id="@+id/post_TV_name"
+                android:layout_marginStart="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Dima"
+                android:textStyle="bold"
+                android:textColor="@color/green"
+                />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/post_TV_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="01/12/2023 15:33"
+            android:layout_alignParentRight="true"
+            android:textColor="@color/darkGray"
+            android:layout_below="@id/post_LL_nameWrapper"
+            android:layout_marginHorizontal="10dp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="here some post dummy data here some post dummy data here some post dummy data here some post dummy data here some post dummy data here"
+            android:layout_below="@id/post_TV_date"
+            android:padding="10dp"
+            />
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>
