@@ -15,7 +15,7 @@
        android:layout_height="match_parent">
 
        <ImageView
-           android:id="@+id/restaurant_IV_image"
+           android:id="@+id/restaurantItem_IV_image"
            android:layout_width="match_parent"
            android:layout_height="130dp"
            android:src="@drawable/test"
@@ -23,19 +23,19 @@
            />
 
        <TextView
-           android:id="@+id/restaurant_TV_name"
+           android:id="@+id/restaurantItem_TV_name"
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
            android:text="Restaurant Name"
            android:maxLines="1"
-           android:layout_below="@+id/restaurant_IV_image"
+           android:layout_below="@+id/restaurantItem_IV_image"
            android:layout_centerHorizontal="true"
            android:textColor="@color/black"
            android:textStyle="bold"
            />
 
        <LinearLayout
-           android:layout_below="@+id/restaurant_TV_name"
+           android:layout_below="@+id/restaurantItem_TV_name"
            android:layout_centerHorizontal="true"
            android:layout_marginTop="10dp"
            android:orientation="horizontal"
@@ -44,7 +44,7 @@
            android:layout_height="wrap_content">
 
            <TextView
-               android:id="@+id/restaurant_TV_points"
+               android:id="@+id/restaurantItem_TV_points"
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
                android:text="1000"

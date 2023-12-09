@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".home.RestaurantActivity">
+
+    <ImageView
+        android:id="@+id/restaurant_IV_image"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:src="@drawable/test"
+        android:scaleType="fitXY"
+        />
+
+    <TextView
+        android:id="@+id/restaurant_TV_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="@color/green"
+        android:layout_below="@id/restaurant_IV_image"
+        android:text="Restaurant name"
+        android:layout_margin="10dp"
+        />
+
+    <TextView
+        android:id="@+id/restaurant_TV_phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:textColor="@color/darkGray"
+        android:layout_below="@id/restaurant_TV_name"
+        android:text="05499111332"
+        android:layout_marginHorizontal="10dp"
+        />
+
+    <TextView
+        android:id="@+id/restaurant_TV_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:layout_below="@id/restaurant_TV_phone"
+        android:text="Tamra street 200"
+        android:layout_margin="10dp"
+        />
+
+    <LinearLayout
+        android:layout_below="@+id/restaurant_TV_name"
+        android:layout_alignParentEnd="true"
+        android:layout_marginHorizontal="20dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/restaurant_TV_points"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1000"
+            android:textSize="20sp"
+            android:textColor="@color/green"
+            android:textStyle="bold"
+            />
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/baseline_star_24"
+            />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/restaurant_TV_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/restaurant_TV_location"
+        android:layout_marginHorizontal="10dp"
+        android:textColor="@color/darkGray"
+        android:text="some description here"
+        />
+</RelativeLayout>
