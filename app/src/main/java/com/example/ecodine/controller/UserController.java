@@ -1,13 +1,17 @@
 package com.example.ecodine.controller;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.example.ecodine.callBack.UserCallBack;
 import com.example.ecodine.entity.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 
 public class UserController {
     private FirebaseFirestore database;
@@ -22,21 +26,37 @@ public class UserController {
     }
 
     public void saveUserData(User user) {
-        user.save(database).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+        user.save(database).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
-            public void onComplete(@NonNull Task<DocumentReference> task) {
+            public void onComplete(@NonNull Task<Void> task) {
                 if(task.isSuccessful()){
-                    userCallBack.onUserDataSaveComplete(true, "User data saved!");
-                }else{
-                    String error = task.getException().getMessage().toString();
-                    userCallBack.onUserDataSaveComplete(false, error);
+                    userCallBack.onUserDataSaveComplete(true, "");
+                }else {
+                    userCallBack.onUserDataSaveComplete(false, task.getException().getMessage().toString());
                 }
             }
         });
     }
 
-    public void updateUserData(){}
+    public void updateUserData(){
 
-    public void getUserData(){}
+    }
+
+    public void getUserData(String uid){
+        StorageController storageController = new StorageController();
+        database.collection(User.UserTable).document(uid).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                if(value != null){
+                    User user = value.toObject(User.class);
+                    if(user.getImagePath() != null){
+                        String imageUrl = storageController.downloadImageUrl(user.getImagePath());
+                        user.setImageUrl(imageUrl);
+                    }
+                    userCallBack.onFetchUserDataComplete(user);
+                }
+            }
+        });
+    }
 
 }

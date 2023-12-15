@@ -9,8 +9,14 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.ecodine.R;
+import com.example.ecodine.callBack.AuthCallBack;
+import com.example.ecodine.controller.AuthController;
+import com.example.ecodine.entity.AuthUser;
+import com.example.ecodine.home.HomeActivity;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.progressindicator.CircularProgressIndicator;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.AuthResult;
 
 public class LoginActivity extends AppCompatActivity {
     private TextInputLayout login_TF_email;
@@ -19,6 +25,8 @@ public class LoginActivity extends AppCompatActivity {
     private Button login_BTN_forgetPassword;
     private Button login_BTN_signup;
     private CircularProgressIndicator login_PB_loading;
+
+    private AuthController authController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,17 +38,44 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void initVars() {
+        authController = new AuthController();
+        authController.setAuthCallBack(new AuthCallBack() {
+            @Override
+            public void onCreateAccountComplete(boolean status, String msg) {
+
+            }
+
+            @Override
+            public void onLoginComplete(Task<AuthResult> task) {
+                login_PB_loading.setVisibility(View.INVISIBLE);
+                if(task.isSuccessful()){
+                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                    startActivity(intent);
+                    finish();
+                }else {
+                    String error = task.getException().getMessage().toString();
+                    Toast.makeText(LoginActivity.this, error, Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
         login_BTN_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(LoginActivity.this, "I clicked login button", Toast.LENGTH_SHORT).show();
+                String email = login_TF_email.getEditText().getText().toString();
+                String password = login_TF_password.getEditText().getText().toString();
+                AuthUser authUser = new AuthUser();
+                authUser.setEmail(email);
+                authUser.setPassword(password);
+                authController.login(authUser);
+                login_PB_loading.setVisibility(View.VISIBLE);
             }
         });
 
         login_BTN_forgetPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                String email = login_TF_email.getEditText().getText().toString();
+                authController.sendResetPasswordEmail(email);
             }
         });
 
@@ -62,5 +97,14 @@ public class LoginActivity extends AppCompatActivity {
         login_PB_loading = findViewById(R.id.login_PB_loading);
     }
 
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        AuthController authController1 = new AuthController();
+        if(authController1.getCurrentUser() != null){
+            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+            startActivity(intent);
+            finish();
+        }
+    }
 }

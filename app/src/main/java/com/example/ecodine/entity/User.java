@@ -1,12 +1,18 @@
 package com.example.ecodine.entity;
 
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.Exclude;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class User extends FirebaseUid{
+    public static final String UserTable = "Users";
+
     private String fullName;
     private String email;
+
+
+
+    private String imagePath;
     private String imageUrl;
     private String restaurantId;
 
@@ -30,6 +36,7 @@ public class User extends FirebaseUid{
         return this;
     }
 
+    @Exclude
     public String getImageUrl() {
         return imageUrl;
     }
@@ -47,8 +54,15 @@ public class User extends FirebaseUid{
         this.restaurantId = restaurantId;
         return this;
     }
+    public String getImagePath() {
+        return imagePath;
+    }
 
-    public Task<DocumentReference> save(FirebaseFirestore db){
-        return db.collection("Users").add(this);
+    public User setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+        return this;
+    }
+    public Task<Void> save(FirebaseFirestore db){
+        return db.collection(UserTable).document(this.uid).set(this);
     }
 }

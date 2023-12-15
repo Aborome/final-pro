@@ -14,8 +14,10 @@ import com.example.ecodine.controller.AuthController;
 import com.example.ecodine.controller.UserController;
 import com.example.ecodine.entity.AuthUser;
 import com.example.ecodine.entity.User;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.progressindicator.CircularProgressIndicator;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.AuthResult;
 
 public class SignupActivity extends AppCompatActivity {
 
@@ -51,12 +53,17 @@ public class SignupActivity extends AppCompatActivity {
                     User user = new User()
                             .setEmail(email)
                             .setFullName(fullName);
-
+                    user.setUid(authController.getCurrentUser().getUid());
                     userController.saveUserData(user);
                 }else{
                     signup_PB_loading.setVisibility(View.INVISIBLE);
                     Toast.makeText(SignupActivity.this, msg, Toast.LENGTH_SHORT).show();
                 }
+
+            }
+
+            @Override
+            public void onLoginComplete(Task<AuthResult> task) {
 
             }
 
@@ -70,6 +77,11 @@ public class SignupActivity extends AppCompatActivity {
                if(status){
                    finish();
                }
+           }
+
+           @Override
+           public void onFetchUserDataComplete(User user) {
+
            }
        });
 

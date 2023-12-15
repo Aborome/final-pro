@@ -23,9 +23,14 @@ public class AuthController {
     }
 
     public void login(AuthUser authUser){
-
+        mAuth.signInWithEmailAndPassword(authUser.getEmail(), authUser.getPassword())
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        authCallBack.onLoginComplete(task);
+                    }
+                });
     }
-
     public FirebaseUser getCurrentUser(){
         return mAuth.getCurrentUser();
     }
@@ -45,5 +50,13 @@ public class AuthController {
             }
         });
 
+    }
+
+    public void sendResetPasswordEmail(String email){
+        mAuth.sendPasswordResetEmail(email);
+    }
+
+    public void logout(){
+        mAuth.signOut();
     }
 }
