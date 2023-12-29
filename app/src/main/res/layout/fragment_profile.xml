@@ -39,7 +39,7 @@
         android:id="@+id/fProfile_CV_editDetails"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/fProfile_CV_posts"
+        android:layout_above="@id/fProfile_CV_restaurant"
         app:cardElevation="1dp"
         android:layout_marginBottom="20dp"
         >
@@ -50,7 +50,6 @@
             android:background="@color/white"
             android:orientation="horizontal"
             android:paddingVertical="10dp"
-
             >
 
             <ImageView
@@ -76,7 +75,7 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/fProfile_CV_posts"
+        android:id="@+id/fProfile_CV_restaurant"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@id/fProfile_CV_logout"

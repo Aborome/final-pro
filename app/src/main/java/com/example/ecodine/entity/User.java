@@ -6,12 +6,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 public class User extends FirebaseUid{
     public static final String UserTable = "Users";
-
     private String fullName;
     private String email;
-
-
-
     private String imagePath;
     private String imageUrl;
     private String restaurantId;

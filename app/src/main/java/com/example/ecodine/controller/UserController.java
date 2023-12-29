@@ -38,8 +38,8 @@ public class UserController {
         });
     }
 
-    public void updateUserData(){
-
+    public void updateRestaurantId(String uid, String restaurantId){
+        database.collection(User.UserTable).document(uid).update("restaurantId", restaurantId);
     }
 
     public void getUserData(String uid){

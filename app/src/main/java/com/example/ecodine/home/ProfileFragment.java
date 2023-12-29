@@ -32,7 +32,7 @@ public class ProfileFragment extends Fragment {
     private CircleImageView fProfile_IV_profileImage;
     private TextView fProfile_TV_name;
     private CardView fProfile_CV_editDetails;
-    private CardView fProfile_CV_posts;
+    private CardView fProfile_CV_restaurant;
     private CardView fProfile_CV_logout;
 
 
@@ -66,13 +66,22 @@ public class ProfileFragment extends Fragment {
                 activity.finish();
             }
         });
+
+        fProfile_CV_restaurant.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(activity, MyRestaurantActivity.class);
+
+                startActivity(intent);
+            }
+        });
     }
 
     private void findViews(View view) {
         fProfile_IV_profileImage = view.findViewById(R.id.fProfile_IV_profileImage);
         fProfile_TV_name = view.findViewById(R.id.fProfile_TV_name);
         fProfile_CV_editDetails = view.findViewById(R.id.fProfile_CV_editDetails);
-        fProfile_CV_posts = view.findViewById(R.id.fProfile_CV_posts);
+        fProfile_CV_restaurant = view.findViewById(R.id.fProfile_CV_restaurant);
         fProfile_CV_logout = view.findViewById(R.id.fProfile_CV_logout);
     }
 
