@@ -2,7 +2,9 @@ package com.example.ecodine.entity;
 
 import com.google.firebase.firestore.Exclude;
 
-public class FirebaseUid {
+import java.io.Serializable;
+
+public class FirebaseUid implements Serializable {
     protected String uid;
 
     public FirebaseUid(){

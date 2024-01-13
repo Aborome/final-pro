@@ -25,15 +25,20 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.ecodine.R;
+import com.example.ecodine.callBack.RestaurantCallBack;
+import com.example.ecodine.controller.AuthController;
 import com.example.ecodine.controller.RestaurantController;
 import com.example.ecodine.controller.StorageController;
 import com.example.ecodine.entity.Restaurant;
 import com.example.ecodine.utils.Generic;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class MyRestaurantActivity extends AppCompatActivity {
@@ -46,6 +51,8 @@ public class MyRestaurantActivity extends AppCompatActivity {
     private Uri selectedImageUri;
     private RestaurantController restaurantController;
     private StorageController storageController;
+    private AuthController authController;
+    private Restaurant currentRestaurant;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +75,35 @@ public class MyRestaurantActivity extends AppCompatActivity {
     }
     private void initVars() {
         restaurantController = new RestaurantController();
+        authController = new AuthController();
+        restaurantController.setRestaurantCallBack(new RestaurantCallBack() {
+            @Override
+            public void onUpdateComplete(Task<Void> task) {
+                if(task.isSuccessful()){
+                    Toast.makeText(MyRestaurantActivity.this, "Restaurant updated successfully", Toast.LENGTH_SHORT).show();
+                    finish();
+                }else{
+                    String err = task.getException().getMessage().toString();
+                    Toast.makeText(MyRestaurantActivity.this, err, Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFetchComplete(Restaurant restaurant) {
+                currentRestaurant = restaurant;
+                if(restaurant != null){
+                    displayRestaurant(restaurant);
+                }
+            }
+
+            @Override
+            public void onFetchRestaurantsComplete(ArrayList<Restaurant> restaurants) {
+
+            }
+        });
+
+        restaurantController.fetchRestaurant(authController.getCurrentUser().getUid());
+
         storageController = new StorageController();
         myRestaurant_IV_image.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,6 +127,17 @@ public class MyRestaurantActivity extends AppCompatActivity {
         });
     }
 
+    private void displayRestaurant(Restaurant restaurant) {
+        if(restaurant.getImageUrl() != null){
+            Glide.with(this).load(restaurant.getImageUrl()).into(myRestaurant_IV_image);
+            myRestaurant_IV_image.setScaleType(ImageView.ScaleType.FIT_XY);
+        }
+        myRestaurant_TF_restaurantName.getEditText().setText(restaurant.getName());
+        myRestaurant_TF_restaurantPhone.getEditText().setText(restaurant.getPhone());
+        myRestaurant_TF_restaurantLocation.getEditText().setText(restaurant.getLocation());
+        myRestaurant_TF_restaurantDescription.getEditText().setText(restaurant.getDescription());
+    }
+
     private boolean checkInput() {
 
         String restaurantName = myRestaurant_TF_restaurantName.getEditText().getText().toString();
@@ -99,10 +146,9 @@ public class MyRestaurantActivity extends AppCompatActivity {
         String description = myRestaurant_TF_restaurantDescription.getEditText().getText().toString();
 
 
-        if(selectedImageUri == null){
+        if(selectedImageUri == null && currentRestaurant.getImagePath() == null){
             Toast.makeText(this, "Please upload an image!", Toast.LENGTH_SHORT).show();
             return false;
-
         }
         if(restaurantName.isEmpty()){
             Toast.makeText(this, "Please provide restaurant name!", Toast.LENGTH_SHORT).show();
@@ -130,19 +176,42 @@ public class MyRestaurantActivity extends AppCompatActivity {
         String location = myRestaurant_TF_restaurantLocation.getEditText().getText().toString();
         String description = myRestaurant_TF_restaurantDescription.getEditText().getText().toString();
 
-        double time = new Date().getTime();
-        String ex = Generic.getFileExtension(this, selectedImageUri);
-        String imagePath = Restaurant.RestaurantTable + "/" + time + "." + ex;
+        int points ;
+        if(currentRestaurant == null){
+            points = 0;
+        }else{
+            points = currentRestaurant.getPoints();
+        }
 
-        if( storageController.uploadImage(selectedImageUri, imagePath)){
+        if(selectedImageUri != null){
+            double time = new Date().getTime();
+            String ex = Generic.getFileExtension(this, selectedImageUri);
+            String imagePath = Restaurant.RestaurantTable + "/" + time + "." + ex;
+
+            if(storageController.uploadImage(selectedImageUri, imagePath)){
+                Restaurant restaurant = new Restaurant()
+                        .setName(restaurantName)
+                        .setDescription(description)
+                        .setLocation(location)
+                        .setImagePath(imagePath)
+                        .setPhone(restaurantPhone)
+                        .setPoints(points);
+                restaurant.setUid(authController.getCurrentUser().getUid());
+                restaurantController.updateRestaurant(restaurant);
+            }
+        }else{
             Restaurant restaurant = new Restaurant()
                     .setName(restaurantName)
                     .setDescription(description)
                     .setLocation(location)
-                    .setImagePath(imagePath)
+                    .setImagePath(currentRestaurant.getImagePath())
+                    .setPoints(points)
                     .setPhone(restaurantPhone);
+            restaurant.setUid(authController.getCurrentUser().getUid());
             restaurantController.updateRestaurant(restaurant);
         }
+
+
 
     }
 

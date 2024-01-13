@@ -75,6 +75,7 @@ public class SignupActivity extends AppCompatActivity {
                signup_PB_loading.setVisibility(View.INVISIBLE);
                Toast.makeText(SignupActivity.this, msg, Toast.LENGTH_SHORT).show();
                if(status){
+                   authController.logout();
                    finish();
                }
            }

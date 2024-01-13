@@ -5,7 +5,9 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.Exclude;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-public class Restaurant extends FirebaseUid{
+import java.io.Serializable;
+
+public class Restaurant extends FirebaseUid implements Serializable {
     public static final String RestaurantTable = "Restaurants";
 
     private String name;
@@ -16,7 +18,9 @@ public class Restaurant extends FirebaseUid{
     private String imagePath;
     private String imageUrl;
 
-    public Restaurant() {}
+    public Restaurant() {
+        this.points = 0;
+    }
 
     public String getName() {
         return name;
@@ -82,15 +86,8 @@ public class Restaurant extends FirebaseUid{
         return this;
     }
 
-    public DocumentReference save(FirebaseFirestore db){
-        DocumentReference ref ;
-        if(this.uid != null){
-            ref = db.collection(RestaurantTable).document(this.uid);
-        }else{
-            ref = db.collection(RestaurantTable).document();
-        }
-        Task<Void> task = ref.set(this);
-        while (!task.isCanceled() || !task.isComplete());
-        return ref;
+    public Task<Void> save(FirebaseFirestore db){
+        DocumentReference ref = db.collection(RestaurantTable).document(this.uid);
+        return ref.set(this);
     }
 }

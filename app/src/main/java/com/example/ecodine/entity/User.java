@@ -10,7 +10,6 @@ public class User extends FirebaseUid{
     private String email;
     private String imagePath;
     private String imageUrl;
-    private String restaurantId;
 
     public User(){}
 
@@ -42,14 +41,6 @@ public class User extends FirebaseUid{
         return this;
     }
 
-    public String getRestaurantId() {
-        return restaurantId;
-    }
-
-    public User setRestaurantId(String restaurantId) {
-        this.restaurantId = restaurantId;
-        return this;
-    }
     public String getImagePath() {
         return imagePath;
     }
