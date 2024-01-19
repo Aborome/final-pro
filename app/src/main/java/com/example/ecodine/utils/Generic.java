@@ -8,6 +8,9 @@ import android.provider.MediaStore;
 import android.webkit.MimeTypeMap;
 
 import java.io.ByteArrayOutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 public class Generic {
     public static String getFileExtension(Activity activity, Uri uri){
@@ -21,5 +24,13 @@ public class Generic {
         inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
         String path = MediaStore.Images.Media.insertImage(activity.getContentResolver(), inImage, "Title", null);
         return Uri.parse(path);
+    }
+
+    public static String formatDate(Date date) {
+        // Define the desired date format
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault());
+
+        // Format the date object
+        return sdf.format(date);
     }
 }

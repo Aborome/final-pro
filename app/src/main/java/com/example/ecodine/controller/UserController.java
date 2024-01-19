@@ -53,10 +53,25 @@ public class UserController {
                         String imageUrl = storageController.downloadImageUrl(user.getImagePath());
                         user.setImageUrl(imageUrl);
                     }
+                    user.setUid(value.getId());
                     userCallBack.onFetchUserDataComplete(user);
                 }
             }
         });
     }
 
+    public User getUserDataSync(String uid){
+        StorageController storageController = new StorageController();
+        Task<DocumentSnapshot> task = database.collection(User.UserTable).document(uid).get() ;
+        while (!task.isComplete());
+        if(task.getResult() == null)
+            return null;
+        User user = task.getResult().toObject(User.class);
+        if(user.getImagePath() != null){
+            String imageUrl = storageController.downloadImageUrl(user.getImagePath());
+            user.setImageUrl(imageUrl);
+        }
+        user.setUid(task.getResult().getId());
+        return user;
+    }
 }

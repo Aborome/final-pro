@@ -42,12 +42,14 @@
         android:id="@+id/restaurant_TV_location"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:textColor="@color/black"
         android:layout_below="@id/restaurant_TV_phone"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
         android:text="Tamra street 200"
-        android:layout_margin="10dp"
-        />
+        android:textColor="@color/black"
+        android:textSize="16sp" />
 
     <LinearLayout
         android:layout_below="@+id/restaurant_TV_name"

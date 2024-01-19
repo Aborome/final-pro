@@ -57,6 +57,25 @@ public class RestaurantController {
         });
     }
 
+    public Restaurant fetchRestaurantSync(String uid){
+        Task<DocumentSnapshot> task = this.database.collection(Restaurant.RestaurantTable).document(uid).get();
+        while (!task.isComplete()) ;
+        if(task.getResult() == null) return null;
+        Restaurant restaurant = task.getResult().toObject(Restaurant.class);
+        if(restaurant == null){
+            return null;
+        }else{
+            if(restaurant.getImagePath() != null){
+                StorageController storageController = new StorageController();
+                String imageUrl = storageController.downloadImageUrl(restaurant.getImagePath());
+                restaurant.setImageUrl(imageUrl);
+            }
+            restaurant.setUid(task.getResult().getId());
+        }
+
+        return  restaurant;
+    }
+
     public void fetchRestaurants(){
         this.database.collection(Restaurant.RestaurantTable)
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {

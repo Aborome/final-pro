@@ -10,7 +10,7 @@
         android:id="@+id/fHome_TV_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello Dima"
+        android:text="Loading..."
         android:textSize="32sp"
         android:padding="10dp"
         android:textColor="@color/black"

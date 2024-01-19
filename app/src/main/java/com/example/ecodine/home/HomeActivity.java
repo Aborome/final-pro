@@ -81,7 +81,7 @@ public class HomeActivity extends AppCompatActivity {
         homeFragment = new HomeFragment(this);
         profileFragment = new ProfileFragment(this);
         ideasFragment = new IdeasFragment();
-        postsFragment = new PostsFragment();
+        postsFragment = new PostsFragment(this);
 
         getSupportFragmentManager().beginTransaction().add(R.id.home_FL_home, homeFragment).commit();
         getSupportFragmentManager().beginTransaction().add(R.id.home_FL_posts, postsFragment).commit();
