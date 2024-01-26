@@ -24,7 +24,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 
 public class ProfileFragment extends Fragment {
-
+    public static final String CURRENT_USER = "CURRENT_USER";
     private Activity activity;
     private AuthController authController;
     private UserController userController;
@@ -35,6 +35,7 @@ public class ProfileFragment extends Fragment {
     private CardView fProfile_CV_restaurant;
     private CardView fProfile_CV_logout;
 
+    private User currentUser;
 
     public ProfileFragment(Activity activity) {
         this.activity = activity;
@@ -75,6 +76,15 @@ public class ProfileFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
+        fProfile_CV_editDetails.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(activity, EditAccountActivity.class);
+                intent.putExtra(CURRENT_USER, currentUser);
+                startActivity(intent);
+            }
+        });
     }
 
     private void findViews(View view) {
@@ -94,6 +104,7 @@ public class ProfileFragment extends Fragment {
             }
             @Override
             public void onFetchUserDataComplete(User user) {
+                currentUser = user;
                 fProfile_TV_name.setText(user.getFullName());
                 if(user.getImageUrl() != null){
                     Glide.with(activity).load(user.getImageUrl()).into(fProfile_IV_profileImage);

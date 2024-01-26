@@ -4,12 +4,15 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.Exclude;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-public class User extends FirebaseUid{
+import java.io.Serializable;
+
+public class User extends FirebaseUid implements Serializable{
     public static final String UserTable = "Users";
     private String fullName;
     private String email;
     private String imagePath;
     private String imageUrl;
+    private String phone;
 
     public User(){}
 
@@ -51,5 +54,12 @@ public class User extends FirebaseUid{
     }
     public Task<Void> save(FirebaseFirestore db){
         return db.collection(UserTable).document(this.uid).set(this);
+    }
+
+    public String getPhone(){
+        return this.phone;
+    }
+    public void setPhone(String phone){
+        this.phone = phone;
     }
 }

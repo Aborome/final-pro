@@ -38,10 +38,6 @@ public class UserController {
         });
     }
 
-    public void updateRestaurantId(String uid, String restaurantId){
-        database.collection(User.UserTable).document(uid).update("restaurantId", restaurantId);
-    }
-
     public void getUserData(String uid){
         StorageController storageController = new StorageController();
         database.collection(User.UserTable).document(uid).addSnapshotListener(new EventListener<DocumentSnapshot>() {
