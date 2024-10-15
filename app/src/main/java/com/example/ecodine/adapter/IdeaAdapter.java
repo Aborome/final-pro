@@ -27,7 +27,6 @@ public class IdeaAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.idea, parent, false);
         return new IdeaViewHolder(view);
     }
-
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         Idea idea = getItem(position);

@@ -42,7 +42,8 @@ public class AuthController {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                if(task.isSuccessful()){
-                   authCallBack.onCreateAccountComplete(true, "create account success");
+                   authCallBack.
+                           onCreateAccountComplete(true, "create account success");
                }else {
                     String error = task.getException().getMessage().toString();
                     authCallBack.onCreateAccountComplete(false, error);
