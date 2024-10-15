@@ -18,6 +18,7 @@ public class AuthController {
         mAuth = FirebaseAuth.getInstance();
     }
 
+
     public void setAuthCallBack(AuthCallBack authCallBack){
         this.authCallBack = authCallBack;
     }
